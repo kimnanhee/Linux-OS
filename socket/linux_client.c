@@ -7,7 +7,7 @@
 #include <error.h>
 #include <errno.h>
 #include <sys/types.h>
-#inlcude <sys/socket.h>
+#include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
@@ -15,7 +15,10 @@
 #define SIZE sizeof(struct sockaddr_in)
 #define MAX_SIZE 2048
 #define MY_PORT_S 2008
-#define MY_PORT_R 2009
+#define MY_PORT_R 2000
+
+int sendMsg2(char *msg, int size, struct sockaddr* sock, int sock_len);
+int sendMsg(char *msg, int size, char *ip, int port);
 
 void *recvMsg(void *parms)
 {
@@ -45,7 +48,7 @@ void *recvMsg(void *parms)
 		else 
 		{
 			printf("%d msg received\n", ret);
-			printf("recv from : %d\n", msg);
+			printf("recv from : %s\n", msg);
 			sock.sin_port += 1;
 		}
 		close(sockfd);
@@ -80,7 +83,7 @@ int sengMsg(char *msg, int size, char *ip, int port)
 	}
 	struct sockaddr_in sock = {AF_INET, port, INADDR_ANY};
 	sock.sin_addr.s_addr = inet_addr(ip);
-	sendto(sockfd, msg, size, 0, (struct sockadd *) &sock, sizeof(sock));
+	sendto(sockfd, msg, size, 0, (struct sockaddr *) &sock, sizeof(sock));
 	close(sockfd);
 }
 
@@ -99,5 +102,5 @@ int main()
 	while(1) 
 		sleep(1);
 	
-	return;
+	return 0;
 }
