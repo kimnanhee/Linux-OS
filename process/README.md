@@ -52,5 +52,13 @@ taskset -c 0,4 ./sched 4 100 1 > 2core_4process.txt
 
 
 
+---
 
+nice 
+
+특정 프로세스에 우선순위 부여
+
+-19가 가장 우선순위가 높고, 20이 가장 낮자. 우선순위가 높은 프로세스는 평균보다 많은 CPU시간을 배정받는다.
+
+![image-20201021151017526](C:\Users\user\AppData\Roaming\Typora\typora-user-images\image-20201021151017526.png)
 
