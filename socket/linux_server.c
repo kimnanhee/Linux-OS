@@ -18,8 +18,8 @@
 #define MY_PORT_R 2007
 
 void *recvMsg(void *parms);
-void sendMsg(char *msg, int size, char *ip, int port);
-void sendMsg2(char *msg, int size, struct sockaddr* sock, int sock_len);
+int sendMsg(char *msg, int size, char *ip, int port);
+int sendMsg2(char *msg, int size, struct sockaddr* sock, int sock_len);
 
 void *recvMsg(void *parms)
 {
@@ -57,7 +57,7 @@ void *recvMsg(void *parms)
 	close(sockfd);
 }
 
-int sengMsg2(char *msg, int size, struct sockaddr* sock, int sock_len)
+int sendMsg2(char *msg, int size, struct sockaddr* sock, int sock_len)
 {
 	struct sockaddr_in mySock = {AF_INET, MY_PORT_S, INADDR_ANY};
 	int sockfd = socket(AF_INET, SOCK_DGRAM, 0);

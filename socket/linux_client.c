@@ -1,4 +1,4 @@
-// server.c
+// client.c
 
 #include <stdio.h>
 #include <unistd.h>
@@ -55,7 +55,7 @@ void *recvMsg(void *parms)
 	}
 }
 
-int sengMsg2(char *msg, int size, struct sockaddr* sock, int sock_len)
+int sendMsg2(char *msg, int size, struct sockaddr* sock, int sock_len)
 {
 	struct sockaddr_in mySock = {AF_INET, MY_PORT_S, INADDR_ANY};
 	int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
@@ -70,7 +70,7 @@ int sengMsg2(char *msg, int size, struct sockaddr* sock, int sock_len)
 	close(sockfd);
 }
 
-int sengMsg(char *msg, int size, char *ip, int port)
+int sendMsg(char *msg, int size, char *ip, int port)
 {
 	struct sockaddr_in mySock = {AF_INET, MY_PORT_S, INADDR_ANY};
 	int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
