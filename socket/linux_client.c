@@ -22,7 +22,7 @@ int sendMsg(char *msg, int size, char *ip, int port);
 
 void *recvMsg(void *parms)
 {
-	struct sockaddr_in mySock = {AF_INET, MY_PORT_R, INADDR_ANY};
+	struct sockaddr_in mySock = {AF_INET, htons(MY_PORT_R), INADDR_ANY};
 	int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 	int ret = bind(sockfd, (struct sockaddr *) &mySock, sizeof(mySock));
 	
@@ -57,7 +57,7 @@ void *recvMsg(void *parms)
 
 int sendMsg2(char *msg, int size, struct sockaddr* sock, int sock_len)
 {
-	struct sockaddr_in mySock = {AF_INET, MY_PORT_S, INADDR_ANY};
+	struct sockaddr_in mySock = {AF_INET, htons(MY_PORT_S), INADDR_ANY};
 	int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 	int ret = bind(sockfd, (struct sockaddr *) &mySock, sizeof(mySock));
 	
@@ -72,7 +72,7 @@ int sendMsg2(char *msg, int size, struct sockaddr* sock, int sock_len)
 
 int sendMsg(char *msg, int size, char *ip, int port)
 {
-	struct sockaddr_in mySock = {AF_INET, MY_PORT_S, INADDR_ANY};
+	struct sockaddr_in mySock = {AF_INET, htons(MY_PORT_S), INADDR_ANY};
 	int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 	int ret = bind(sockfd, (struct sockaddr *) &mySock, sizeof(mySock));
 	
@@ -81,7 +81,7 @@ int sendMsg(char *msg, int size, char *ip, int port)
 		extern int errno;
 		printf("ret(%d), errno(%d, %s)\n", ret, errno, strerror(errno));
 	}
-	struct sockaddr_in sock = {AF_INET, port, INADDR_ANY};
+	struct sockaddr_in sock = {AF_INET, htons(port), INADDR_ANY};
 	sock.sin_addr.s_addr = inet_addr(ip);
 	sendto(sockfd, msg, size, 0, (struct sockaddr *) &sock, sizeof(sock));
 	close(sockfd);

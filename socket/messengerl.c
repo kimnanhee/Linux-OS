@@ -1,8 +1,9 @@
-// server.c
+// messengerl.c
 
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdlib.h>
 #include <pthread.h>
 #include <error.h>
 #include <errno.h>
@@ -14,12 +15,12 @@
 
 #define SIZE sizeof(struct sockaddr_in)
 #define MAX_SIZE 2048
-#define MY_PORT_S 2006
-#define MY_PORT_R 2007
+// #define MY_PORT_S 2008
+// #define MY_PORT_R 2000
+int MY_PORT_S, MY_PORT_R;
 
-void *recvMsg(void *parms);
-int sendMsg(char *msg, int size, char *ip, int port);
 int sendMsg2(char *msg, int size, struct sockaddr* sock, int sock_len);
+int sendMsg(char *msg, int size, char *ip, int port);
 
 void *recvMsg(void *parms)
 {
@@ -51,10 +52,9 @@ void *recvMsg(void *parms)
 			printf("%d msg received\n", ret);
 			printf("recv from : %s\n", msg);
 			sock.sin_port += 1;
-			sendMsg2(msg, strlen(msg), (struct sockaddr*) &sock, sock_len);
 		}
+		close(sockfd);
 	}
-	close(sockfd);
 }
 
 int sendMsg2(char *msg, int size, struct sockaddr* sock, int sock_len)
@@ -72,7 +72,7 @@ int sendMsg2(char *msg, int size, struct sockaddr* sock, int sock_len)
 	close(sockfd);
 }
 
-int sengMsg(char *msg, int size, char *ip, int port)
+int sendMsg(char *msg, int size, char *ip, int port)
 {
 	struct sockaddr_in mySock = {AF_INET, htons(MY_PORT_S), INADDR_ANY};
 	int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
@@ -89,15 +89,30 @@ int sengMsg(char *msg, int size, char *ip, int port)
 	close(sockfd);
 }
 
-int main()
+int main(int argc, char **argv)
 {
+	if(argc != 4)
+	{
+		printf("usage : %s my_port_s my_port_r target_port_r\n", argv[0]);
+		exit(0);
+	}
+	MY_PORT_S = atoi(argv[1]);
+	MY_PORT_R = atoi(argv[2]);
+	int target_r = atoi(argv[3]);
+
 	pthread_t tid;
 	if(pthread_create(&tid, NULL, recvMsg, NULL));
 	{
 		printf("thread create fail\n");
 	}
-	while(1) 
-		sleep(1);
+	
+	while(1)
+	{
+		char msg[MAX_SIZE] = {0};
+		fgets(msg, MAX_SIZE, stdin);
+		sendMsg(msg, strlen(msg), "127.0.0.1", target_r);
+	}
+	sleep(1);
 	
 	return 0;
 }
