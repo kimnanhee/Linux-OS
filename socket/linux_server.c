@@ -92,7 +92,7 @@ int sengMsg(char *msg, int size, char *ip, int port)
 int main()
 {
 	pthread_t tid;
-	if(pthread_create(&tid, NULL, recvMsg, NULL));
+	if(pthread_create(&tid, NULL, recvMsg, NULL))
 	{
 		printf("thread create fail\n");
 	}
