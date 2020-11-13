@@ -70,7 +70,7 @@ void *recvMsg(void *parms)
                     printf("GetEnv\n");
                     struct dataEnv data = *(struct dataEnv *) (msg + sizeof(struct msgHeader));
                     printf("%s\n", data.envName);
-                    strcpy(data.envValue, getenv(data.envValue));
+                    strcpy(data.envValue, getenv(data.envName));
                     printf("%s %s\n", data.envName, data.envValue);
 
                     struct msgEnv mEnv;
@@ -105,6 +105,7 @@ void *recvMsg(void *parms)
                 }
             }
 		}
+        printf("end\n");
 	}
 	close(sockfd);
 }
