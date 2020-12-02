@@ -32,6 +32,18 @@ int main()
         printf("thread create fail\n");
     }
 
+    struct abc{
+	    char c;
+	    long l;
+	    int i;
+    };
+    struct abc x;
+    x.c = 0x01;
+    x.l = 0x0102030405;
+    x.i = 0x010203;
+    sendMsg((char*)&x, sizeof(struct abc), (char*)"127.0.0.1", PORT_SERVER_R);
+
+    /*
     struct msgEnv mEnv;
     mEnv.hdr.cmdId = reqSetEnv;
     strcpy(mEnv.env.envName, "TESTENV");
@@ -45,7 +57,7 @@ int main()
     strcpy(mEnv.env.envValue, "");
     Write(mEnv);
     sendMsg((char*)&mEnv, sizeof(mEnv), (char*)"127.0.0.1", PORT_SERVER_R);
-
+    */
     while(1)
         sleep(1);
 }
