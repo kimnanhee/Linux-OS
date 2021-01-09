@@ -67,3 +67,48 @@ echp $num4
 exit 0
 ```
 
+
+
+#### if문
+
+[ 조건 ]의 각 단어 사이는 공백
+
+| 문자열 비교 | 결과               | 산술 비교 | 결과                       |
+| ----------- | ------------------ | --------- | -------------------------- |
+| =           | 같으면 True        | -eq       | 두 수식이 같으면 True      |
+| !=          | 같지 않으면 True   | -ne       | 두 수식이 같지 않으면 True |
+| -n          | NULL이 아니면 True | -gt       | 수식1이 크면 True          |
+| -z          | NULL이면 True      | -ge       | 수식1이 크거나 같으면 True |
+|             |                    | -lt       | 수식1이 작으면 True        |
+|             |                    | -le       | 수식1이 작거나 같으면 True |
+|             |                    | !         | 거짓이면 True              |
+
+``` sh
+#!/bin/sh
+if [ "woo" = "woo" ]
+then
+	echo "참입니다."
+else
+	echo "거짓입니다."
+fi
+
+exit 0
+```
+
+
+
+#### 파일
+
+``` sh
+#!/bin/sh
+fname=/lib/systemd/system/cron.service
+if [ -f $fname ]
+then
+	head -5 $fname
+else
+	echo "cron 서버가 설치되지 않았습니다."
+fi
+
+exit 0
+```
+
