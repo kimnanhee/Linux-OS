@@ -187,3 +187,41 @@ eval str
 exit
 ```
 
+
+
+#### set
+
+명령어의 결과를 파라미터로 사용할 때 $(명령어)와 set
+
+``` sh
+#!/bin/sh
+echo "오늘 날짜는 $(date)입니다."
+set $(date)
+echo "지금은 $4(시:분:초)입니다."
+
+exit 0
+```
+
+
+
+#### shift
+
+파라미터 변수를 하나씩 쉬프트
+
+``` sh
+#!/bin/sh
+myfunc()
+{
+	str=""
+	while [ "$1" != "" ]
+	do
+		str="$str $1"
+		shift
+	done
+	echo $str
+}
+myfunc AA BB CC DD EE FF GG HH
+
+exit 0
+```
+
