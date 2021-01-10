@@ -174,6 +174,65 @@ exit 0
 
 
 
+#### for문
+
+``` sh
+#!/bin/sh
+hap=0
+for i in 1 2 3 4 5 6 7 8 9 10
+do
+	hap=`expr $hap + $i`
+done
+echo "1부터 10까지의 합 : "$hap
+
+exit 0
+```
+
+``` sh
+#!/bin/sh
+for fname in $(ls *.sh)
+do
+	echo ""
+	echo "---- $fname ----"
+	head -3 $fname
+done
+
+exit 0
+```
+
+
+
+#### while문
+
+조건식이 참인 동안에 반복
+[ 1 ], [ : ]은 무한루프
+
+``` sh
+#!/bin/sh
+while [ 1 ]
+do
+	echo "우분투 16.04 LTS"
+done
+
+exit 0
+```
+
+``` sh
+#!/bin/sh
+echo "생일을 입력해주세요."
+read mypass
+while [ $mypass != "0225" ]
+do
+	echo "틀렸습니다. 다시 입력해주세요."
+	read mypass
+done
+echo "정답!"
+
+exit 0
+```
+
+
+
 #### eval
 
 문자열을 명령문으로 인식하고 실행
@@ -191,7 +250,8 @@ exit
 
 #### set
 
-명령어의 결과를 파라미터로 사용할 때 $(명령어)와 set
+리눅스 명령어를 결과로 사용하기 위해서는 $(명령어)
+결과를 파라미터로 사용할 때는 set과 함께 사용
 
 ``` sh
 #!/bin/sh
