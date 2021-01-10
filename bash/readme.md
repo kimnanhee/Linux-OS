@@ -100,6 +100,20 @@ exit 0
 
 #### 파일
 
+| 파일 조건 | 결과                                |
+| --------- | ----------------------------------- |
+| -d        | 파일이 디렉터리면 True              |
+| -e        | 파일이 존재하면 True                |
+| -f        | 파일이 일반 파일이면 True           |
+| -g        | 파일에 set-group-id가 설정되면 True |
+| -r        | 파일이 읽기 가능이면 True           |
+| -s        | 파일 크기가 0이 아니면 True         |
+| -u        | 파일에 set-user-id가 설정되면True   |
+| -w        | 파일이 쓰기 가능이면 True           |
+| -x        | 파일이 실행 가능이면 True           |
+
+
+
 ``` sh
 #!/bin/sh
 fname=/lib/systemd/system/cron.service
