@@ -248,6 +248,31 @@ exit
 
 
 
+#### export
+
+외부 변수로 선언해서 다른 프로그램에서도 사용 가능
+
+``` sh
+exp1.sh
+#!/bin/sh
+echo $var1
+echo $var2
+
+exit 0
+```
+
+``` sh
+exp2.sh
+#!/bin/sh
+var1="지역 변수"
+export var2="외부 변수"
+sh exp1.sh
+
+exit 0
+```
+
+
+
 #### set
 
 리눅스 명령어를 결과로 사용하기 위해서는 $(명령어)
