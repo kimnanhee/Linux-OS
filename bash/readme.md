@@ -59,10 +59,10 @@ num2=$num1 + 200
 echo $num2
 
 num3=`expr $num1 + 200`
-echp $num3
+echo $num3
 
 num4=`expr \( $num1 + 200 \) / 10 \* 2`
-echp $num4
+echo $num4
 
 exit 0
 ```
@@ -71,6 +71,7 @@ exit 0
 
 #### if문
 
+참 or 거짓
 [ 조건 ]의 각 단어 사이는 공백
 
 | 문자열 비교 | 결과               | 산술 비교 | 결과                       |
@@ -110,5 +111,65 @@ else
 fi
 
 exit 0
+```
+
+
+
+#### case문
+
+if문 - 참 or 거짓
+case문 - 여러 가지 경우
+
+``` sh
+#!/bin/sh
+echo "리눅스가 좋나요? (y/n)"
+read answer
+case $answer in
+	yes | y | Y | Yes | YES)
+		echo "좋습니다!";;
+	[nN]*)
+		echo "슬퍼요ㅠ";;
+	*)
+		echo "잘못된 입력입니다."
+		exit 1;;
+esac
+
+exit 0
+```
+
+
+
+#### AND, OR 관계 연산자
+
+and는 -a, &&
+or는 -o, ||
+
+``` sh
+#!/bin/sh
+echo "파일명을 입력해주세요."
+read fname
+if [ -f $fname ] && [ -s $fname ]
+then
+	head -5 $fname
+else
+	echo "파일이 없거나, 크기가 0입니다."
+fi
+
+exit 0
+```
+
+
+
+#### eval
+
+문자열을 명령문으로 인식하고 실행
+
+``` sh
+#!/bin/sh
+str="ls -al"
+echo str
+eval str
+
+exit
 ```
 
